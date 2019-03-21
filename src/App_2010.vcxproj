@@ -375,12 +375,9 @@
   <ItemGroup />
   <ItemGroup>
     <ClCompile Include="App.cpp" />
-    <ClCompile Include="cycloid.cpp" />
     <ClCompile Include="fcolor.cpp" />
-    <ClCompile Include="heart.cpp" />
     <ClCompile Include="quad.cpp" />
     <ClCompile Include="shape.cpp" />
-    <ClCompile Include="tree.cpp" />
     <ClCompile Include="window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -388,15 +385,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="constant_buffer.h" />
-    <ClInclude Include="cycloid.h" />
     <ClInclude Include="entity.h" />
     <ClInclude Include="fcolor.h" />
-    <ClInclude Include="heart.h" />
     <ClInclude Include="quad.h" />
     <CLInclude Include="resource.h" />
     <ClInclude Include="shape.h" />
     <ClInclude Include="simple_vertex.h" />
-    <ClInclude Include="tree.h" />
+    <ClInclude Include="vector.h" />
     <ClInclude Include="window.h" />
   </ItemGroup>
   <ItemGroup>

@@ -1,37 +1,14 @@
 #pragma once
+#include "entity.h"
 
-#include "shape.h"
-
-class S2DQuad :
-	public Shape
+// A quad is a primitive type of 2 triangles.
+class Quad :
+	public Entity
 {
 public:
-	S2DQuad(double, double,
-		double, double,
-		double, double,
-		double, double,
-		FloatColor*);
-};
 
-class S2DRectangle :
-	public S2DQuad
-{
-public:
-	S2DRectangle(double,
-		double,
-		double,
-		double,
-		FloatColor*);
-};
-
-class S2DDiamond :
-	public S2DQuad
-{
-public:
-	S2DDiamond(double,
-		double,
-		double,
-		double,
-		FloatColor*);
+	Quad();
+	Quad(float x, float y, float z);
+	~Quad() {}
 };
 

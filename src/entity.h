@@ -1,5 +1,6 @@
 #pragma once
 
+#include "vector.h"
 #include "simple_vertex.h"
 #include "constant_buffer.h"
 
@@ -7,7 +8,7 @@
 class Entity
 {
 protected:
-	double x, y;
+	VEC3 position;
 public:
 	Entity() {}
 	virtual void Render(ID3D11DeviceContext*, ConstantBuffer&, ID3D11Buffer*, UINT*, UINT*) = 0;

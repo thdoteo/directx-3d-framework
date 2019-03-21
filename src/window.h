@@ -4,11 +4,12 @@
 #include <d3dx11.h>
 #include <d3dcompiler.h>
 #include <xnamath.h>
+
 #include "resource.h"
 #include "simple_vertex.h"
 #include "constant_buffer.h"
-
-#include "tree.h"
+#include "entity.h"
+#include "fcolor.h"
 
 #pragma once
 class Window

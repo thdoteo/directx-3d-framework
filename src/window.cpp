@@ -10,12 +10,12 @@
 #include "simple_vertex.h"
 #include "constant_buffer.h"
 
-Window::Window(LPCWSTR _title, int _width, int _height, FloatColor* _background)
+Window::Window(LPCWSTR title, int width, int height, FloatColor* background)
 {
-	title = _title;
-	width = _width;
-	height = _height;
-	background = _background;
+	this->title = title;
+	this->width = width;
+	this->height = height;
+	this->background = background;
 }
 
 
@@ -164,8 +164,6 @@ HRESULT Window::InitDevice()
 
 	RECT rc;
 	GetClientRect(g_hWnd, &rc);
-	UINT width = rc.right - rc.left;
-	UINT height = rc.bottom - rc.top;
 
 	UINT createDeviceFlags = 0;
 	#ifdef _DEBUG
@@ -191,8 +189,8 @@ HRESULT Window::InitDevice()
 	DXGI_SWAP_CHAIN_DESC sd;
 	ZeroMemory(&sd, sizeof(sd));
 	sd.BufferCount = 1;
-	sd.BufferDesc.Width = width;
-	sd.BufferDesc.Height = height;
+	sd.BufferDesc.Width = rc.right - rc.left;
+	sd.BufferDesc.Height = rc.bottom - rc.top;
 	sd.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
 	sd.BufferDesc.RefreshRate.Numerator = 60;
 	sd.BufferDesc.RefreshRate.Denominator = 1;
