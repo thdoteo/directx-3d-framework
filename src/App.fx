@@ -6,10 +6,6 @@ cbuffer ConstantBuffer : register(b0)
 	matrix World;
 	matrix View;
 	matrix Projection;
-
-	float ColorR;
-	float ColorG;
-	float ColorB;
 }
 
 //--------------------------------------------------------------------------------------

@@ -8,4 +8,14 @@ Just clone the repository and open the project with Visual Studio.
 
 ## To-Do
 
-- Adapt the project to do 3D
+- Fix: different way of handling color for quads
+- Fix: normalize vertices of cuboid
+
+---
+
+- Applying textures
+- Implement lights
+- Implement camera
+- Loading 3D models
+- Animation handler
+- Events handler

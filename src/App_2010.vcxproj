@@ -376,8 +376,8 @@
   <ItemGroup>
     <ClCompile Include="App.cpp" />
     <ClCompile Include="fcolor.cpp" />
-    <ClCompile Include="quad.cpp" />
-    <ClCompile Include="shape.cpp" />
+    <ClCompile Include="cuboid.cpp" />
+    <ClCompile Include="object.cpp" />
     <ClCompile Include="window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -387,9 +387,9 @@
     <ClInclude Include="constant_buffer.h" />
     <ClInclude Include="entity.h" />
     <ClInclude Include="fcolor.h" />
-    <ClInclude Include="quad.h" />
+    <ClInclude Include="cuboid.h" />
     <CLInclude Include="resource.h" />
-    <ClInclude Include="shape.h" />
+    <ClInclude Include="object.h" />
     <ClInclude Include="simple_vertex.h" />
     <ClInclude Include="vector.h" />
     <ClInclude Include="window.h" />

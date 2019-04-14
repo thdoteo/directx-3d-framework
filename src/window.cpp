@@ -316,42 +316,14 @@ HRESULT Window::InitDevice()
 
 
 
-	// Register FOR ALL ENTITIES
-	for (auto const& i : entities) {
-		//i->Register(g_pd3dDevice, bd, InitData);
-	}
-
-
-	// Create vertex buffer
-	SimpleVertex vertices[] =
-	{
-		{ XMFLOAT3(-1.0f, 1.0f, -1.0f), XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f) },
-		{ XMFLOAT3(1.0f, 1.0f, -1.0f), XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f) },
-		{ XMFLOAT3(1.0f, 1.0f, 1.0f), XMFLOAT4(0.0f, 1.0f, 1.0f, 1.0f) },
-		{ XMFLOAT3(-1.0f, 1.0f, 1.0f), XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f) },
-		{ XMFLOAT3(-1.0f, -1.0f, -1.0f), XMFLOAT4(1.0f, 0.0f, 1.0f, 1.0f) },
-		{ XMFLOAT3(1.0f, -1.0f, -1.0f), XMFLOAT4(1.0f, 1.0f, 0.0f, 1.0f) },
-		{ XMFLOAT3(1.0f, -1.0f, 1.0f), XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f) },
-		{ XMFLOAT3(-1.0f, -1.0f, 1.0f), XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f) },
-	};
+	// Register all entities
 	D3D11_BUFFER_DESC bd;
 	ZeroMemory(&bd, sizeof(bd));
-	bd.Usage = D3D11_USAGE_DEFAULT;
-	bd.ByteWidth = sizeof(SimpleVertex) * 8;
-	bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-	bd.CPUAccessFlags = 0;
 	D3D11_SUBRESOURCE_DATA InitData;
 	ZeroMemory(&InitData, sizeof(InitData));
-	InitData.pSysMem = vertices;
-	hr = g_pd3dDevice->CreateBuffer(&bd, &InitData, &g_pVertexBuffer);
-	if (FAILED(hr))
-		return hr;
-
-	// Set vertex buffer
-	UINT stride = sizeof(SimpleVertex);
-	UINT offset = 0;
-	g_pImmediateContext->IASetVertexBuffers(0, 1, &g_pVertexBuffer, &stride, &offset);
-
+	for (auto const& i : entities) {
+		i->Register(g_pd3dDevice, bd, InitData, g_pImmediateContext);
+	}
 
 
 
@@ -390,7 +362,6 @@ HRESULT Window::InitDevice()
 
 
 	// Create the constant buffer
-
 	bd.Usage = D3D11_USAGE_DEFAULT;
 	bd.ByteWidth = sizeof(ConstantBuffer);
 	bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
@@ -402,7 +373,6 @@ HRESULT Window::InitDevice()
 
 	// Set primitive topology
 	g_pImmediateContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-
 	g_pImmediateContext->VSSetShader(g_pVertexShader, NULL, 0);
 	g_pImmediateContext->PSSetShader(g_pPixelShader, NULL, 0);
 
@@ -465,11 +435,6 @@ void Window::Render()
 		t = (dwTimeCur - dwTimeStart) / 1000.0f;
 	}
 
-	// Animations
-	// 1. Rotate cube around the origin
-	g_World = XMMatrixRotationY(-t);
-	g_World *= XMMatrixTranslation(1.0f, 0.0f, 0.0f); // change position of the cube
-
 	// Clear back buffer
 	float ClearColor[4] = { background->r, background->g, background->b, 1.0f };
 	g_pImmediateContext->ClearRenderTargetView(g_pRenderTargetView, ClearColor);
@@ -478,21 +443,25 @@ void Window::Render()
 	g_pImmediateContext->ClearDepthStencilView(g_pDepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 
 
-	
-	// Update variables for the first cube
+
+
+	// Render all entities
 	ConstantBuffer cb1;
-	cb1.mWorld = XMMatrixTranspose(g_World);
-	cb1.mView = XMMatrixTranspose(g_View);
-	cb1.mProjection = XMMatrixTranspose(g_Projection);
-	cb1.fColorR = 1.0f;
-	cb1.fColorG = 1.0f;
-	cb1.fColorB = 1.0f;
-	g_pImmediateContext->UpdateSubresource(g_pConstantBuffer, 0, NULL, &cb1, 0, 0);
-	// Render the first cube
-	g_pImmediateContext->VSSetShader(g_pVertexShader, NULL, 0);
-	g_pImmediateContext->VSSetConstantBuffers(0, 1, &g_pConstantBuffer);
-	g_pImmediateContext->PSSetShader(g_pPixelShader, NULL, 0);
-	g_pImmediateContext->DrawIndexed(36, 0, 0);
+	for (auto const& i : entities) {
+		ZeroMemory(&cb1, sizeof(ConstantBuffer));
+
+		i->Render(g_World, t);
+
+		cb1.mWorld = XMMatrixTranspose(g_World);
+		cb1.mView = XMMatrixTranspose(g_View);
+		cb1.mProjection = XMMatrixTranspose(g_Projection);
+
+		g_pImmediateContext->UpdateSubresource(g_pConstantBuffer, 0, NULL, &cb1, 0, 0);
+		g_pImmediateContext->VSSetShader(g_pVertexShader, NULL, 0);
+		g_pImmediateContext->VSSetConstantBuffers(0, 1, &g_pConstantBuffer);
+		g_pImmediateContext->PSSetShader(g_pPixelShader, NULL, 0);
+		g_pImmediateContext->DrawIndexed(36, 0, 0);
+	}
 
 
 

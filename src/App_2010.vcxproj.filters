@@ -15,9 +15,6 @@
     <Filter Include="framework\entity">
       <UniqueIdentifier>{556f3e13-216d-448d-9b3d-0d6ffdebc329}</UniqueIdentifier>
     </Filter>
-    <Filter Include="framework\entity\shape">
-      <UniqueIdentifier>{bee95eac-ea57-403e-bff3-568b5e87f236}</UniqueIdentifier>
-    </Filter>
     <Filter Include="framework\render">
       <UniqueIdentifier>{03626652-95a8-4226-acad-123ff012f4bc}</UniqueIdentifier>
     </Filter>
@@ -27,22 +24,24 @@
     <Filter Include="framework\utils">
       <UniqueIdentifier>{2089627c-cd5c-4715-9db6-1c3408ae3858}</UniqueIdentifier>
     </Filter>
+    <Filter Include="framework\entity\object">
+      <UniqueIdentifier>{bee95eac-ea57-403e-bff3-568b5e87f236}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="fcolor.cpp">
       <Filter>framework\render</Filter>
     </ClCompile>
     <ClCompile Include="App.cpp" />
-    <ClCompile Include="shape.cpp">
-      <Filter>framework\entity\shape</Filter>
-    </ClCompile>
     <ClCompile Include="App.cpp" />
-    <ClCompile Include="tree.cpp" />
     <ClCompile Include="window.cpp">
       <Filter>framework\window</Filter>
     </ClCompile>
-    <ClCompile Include="quad.cpp">
-      <Filter>framework\entity\shape</Filter>
+    <ClCompile Include="object.cpp">
+      <Filter>framework\entity\object</Filter>
+    </ClCompile>
+    <ClCompile Include="cuboid.cpp">
+      <Filter>framework\entity\object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -66,17 +65,17 @@
     <ClInclude Include="entity.h">
       <Filter>framework\entity</Filter>
     </ClInclude>
-    <ClInclude Include="shape.h">
-      <Filter>framework\entity\shape</Filter>
-    </ClInclude>
     <ClInclude Include="window.h">
       <Filter>framework\window</Filter>
     </ClInclude>
-    <ClInclude Include="quad.h">
-      <Filter>framework\entity\shape</Filter>
-    </ClInclude>
     <ClInclude Include="vector.h">
       <Filter>framework\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="object.h">
+      <Filter>framework\entity\object</Filter>
+    </ClInclude>
+    <ClInclude Include="cuboid.h">
+      <Filter>framework\entity\object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
